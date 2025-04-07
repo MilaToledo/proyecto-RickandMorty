@@ -51,18 +51,35 @@
         </div>
         
         <div>
-            <section class="character-section hidden"></section>
-            <section class="episode-section hidden"></section>
-            <section class="results-section"></section>
-            <div class="loader-container hidden"></div>
+            <section class="character-section hidden">
+                <h2>Characters</h2>
+                <div class="character-grid"></div>
+                <div class="pagination-controls character">
+                    <button class="first-page">First</button>
+                    <button class="prev-page">Previous</button>
+                    <span class="page-info"></span>
+                    <button class="next-page">Next</button>
+                    <button class="last-page">Last</button>
+                </div>
+            </section>
+
+            <section class="episode-section hidden">
+                <h2>Episodes</h2>
+                <div class="episode-list"></div>
+                <div class="pagination-controls episode">
+                    <button class="first-page">First</button>
+                    <button class="prev-page">Previous</button>
+                    <span class="page-info"></span>
+                    <button class="next-page">Next</button>
+                    <button class="last-page">Last</button>
+                </div>
+            </section>
+            <div class="loader-container hidden">
+                <div class="loader"></div>
+            </div>
         </div>
     </main>
     
-    <script>
-        document.querySelector('.search-button').addEventListener('click', function() {
-            // Search functionality would be implemented here
-            alert('¡Wubba Lubba Dub Dub! Función de búsqueda en desarrollo.');
-        });
-    </script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
