@@ -26,7 +26,7 @@
     
     <main class="column">
         <div class="search">
-            <h2 id="search-title">Búsqueda</h2>
+            <h2 id="search-title">Search here</h2>
             <div class="search-container">
                 <div class="search-input-container">
                     <input type="text" id="search-input" class="search-input" placeholder="Busca personajes, episodios o ubicaciones" aria-labelledby="search-title">
@@ -36,21 +36,20 @@
             
             <div class="search-inner-container">
                 <div class="sort-container">
-                    <label for="search-type">TIPO:</label>
+                    <label for="search-type">TYPE:</label>
                     <select name="search-type" id="search-type">
-                        <option value="character">Personajes</option>
-                        <option value="episode">Episodios</option>
-                        <option value="location">Ubicaciones</option>
+                        <option value="character">Character</option>
+                        <option value="episode">Episodes</option>
                     </select>
                     
-                    <label for="search-sort">ORDEN:</label>
+                    <label for="search-sort">ORDER:</label>
                     <select name="search-sort" id="search-sort">
                         <option value="asc">A-Z</option>
                         <option value="desc">Z-A</option>
                         <option value="recent">Más reciente</option>
                     </select>
                 </div>
-                <button type="button" class="search-button">BUSCAR</button>
+                <button type="button" class="search-button">SEARCH</button>
             </div>
         </div>
         
@@ -81,6 +80,17 @@
             <div class="loader-container hidden">
                 <div class="loader"></div>
             </div>
+            
+            <section class="episode-details-section hidden">
+                <button class="back-button">← Back to Episodes</button>
+                <h2 class="episode-title"></h2>
+                <div class="episode-meta">
+                    <span class="episode-code"></span>
+                    <span class="episode-air-date"></span>
+                </div>
+                <h3>Characters in this episode:</h3>
+                <div class="episode-characters-grid"></div>
+            </section>
         </div>
     </main>
     

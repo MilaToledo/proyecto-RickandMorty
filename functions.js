@@ -125,10 +125,48 @@ function updatePaginationControls(paginationInfo, type) {
     pageInfo.textContent = `Page ${paginationInfo.currentPage} of ${paginationInfo.totalPages}`;
 }
 
+async function showEpisodeDetails(episode) {
+    const detailsSection = document.querySelector('.episode-details-section');
+    const episodeSection = document.querySelector('.episode-section');
+    
+    // Update episode info
+    document.querySelector('.episode-title').textContent = episode.name;
+    document.querySelector('.episode-code').textContent = episode.episode;
+    document.querySelector('.episode-air-date').textContent = `Aired: ${episode.air_date}`;
+    
+    // Fetch and display characters
+    const charactersGrid = document.querySelector('.episode-characters-grid');
+    charactersGrid.innerHTML = '';
+    
+    const characterPromises = episode.characters.map(url => fetch(url).then(res => res.json()));
+    const characters = await Promise.all(characterPromises);
+    
+    characters.forEach(character => {
+        const card = document.createElement('div');
+        card.className = 'episode-character-card';
+        card.innerHTML = `
+            <img src="${character.image}" alt="${character.name}">
+            <h4>${character.name}</h4>
+        `;
+        charactersGrid.appendChild(card);
+    });
+    
+    // Show details section
+    episodeSection.classList.add('hidden');
+    detailsSection.classList.remove('hidden');
+    
+    // Back button handler
+    document.querySelector('.back-button').onclick = () => {
+        detailsSection.classList.add('hidden');
+        episodeSection.classList.remove('hidden');
+    };
+}
+
 export { 
     fetchAllCharacters, 
     fetchAllEpisodes, 
     displayCharacters, 
     displayEpisodes,
-    updatePaginationControls 
+    updatePaginationControls,
+    showEpisodeDetails
 };

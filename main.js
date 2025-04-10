@@ -3,7 +3,8 @@ import {
     fetchAllEpisodes, 
     displayCharacters, 
     displayEpisodes,
-    updatePaginationControls 
+    updatePaginationControls,
+    showEpisodeDetails 
 } from './functions.js';
 
 
@@ -80,8 +81,18 @@ function updateDisplay(type) {
             const pagination = displayCharacters(currentCharacters, currentPage);
             updatePaginationControls(pagination, type);
         } else {
-            const pagination = displayEpisodes(currentEpisodes, currentPage);
-            updatePaginationControls(pagination, type);
+        const pagination = displayEpisodes(currentEpisodes, currentPage);
+        updatePaginationControls(pagination, type);
+        
+        // Add click handlers to episode cards
+        document.querySelectorAll('.episode-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', (e) => {
+                const episodeIndex = Array.from(document.querySelectorAll('.episode-card')).indexOf(e.currentTarget);
+                const episode = currentEpisodes[episodeIndex + ((currentPage - 1) * 20)];
+                showEpisodeDetails(episode);
+            });
+        });
         }
     }
 
