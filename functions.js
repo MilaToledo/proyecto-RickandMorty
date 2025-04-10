@@ -1,6 +1,6 @@
 const API_BASE = 'https://rickandmortyapi.com/api';
 
-// Fetch all characters with pagination
+
 async function fetchAllCharacters() {
     let allCharacters = [];
     let nextUrl = `${API_BASE}/character`;
@@ -19,7 +19,7 @@ async function fetchAllCharacters() {
     }
 }
 
-// Fetch all episodes with pagination
+
 async function fetchAllEpisodes() {
     let allEpisodes = [];
     let nextUrl = `${API_BASE}/episode`;
@@ -38,7 +38,7 @@ async function fetchAllEpisodes() {
     }
 }
 
-// Display characters in the DOM with pagination
+
 function displayCharacters(characters, page = 1) {
     const section = document.querySelector('.character-section');
     const grid = section.querySelector('.character-grid');
@@ -53,10 +53,20 @@ function displayCharacters(characters, page = 1) {
         const characterCard = document.createElement('div');
         characterCard.className = 'character-card';
         characterCard.innerHTML = `
-            <img src="${character.image}" alt="${character.name}">
-            <h3>${character.name}</h3>
-            <p>Status: ${character.status}</p>
-            <p>Species: ${character.species}</p>
+            <div class="character-card-inner">
+                <div class="character-card-front">
+                    <img src="${character.image}" alt="${character.name}">
+                    <h3>${character.name}</h3>
+                </div>
+                <div class="character-card-back">
+                    <h3>${character.name}</h3>
+                    <p class="status ${character.status.toLowerCase()}">Status: ${character.status}</p>
+                    <p>Species: ${character.species}</p>
+                    <p>Gender: ${character.gender}</p>
+                    <p>Origin: ${character.origin.name}</p>
+                    <p>Episodes: ${character.episode.length}</p>
+                </div>
+            </div>
         `;
         grid.appendChild(characterCard);
     });
@@ -68,7 +78,7 @@ function displayCharacters(characters, page = 1) {
     };
 }
 
-// Display episodes in the DOM with pagination
+
 function displayEpisodes(episodes, page = 1) {
     const section = document.querySelector('.episode-section');
     const list = section.querySelector('.episode-list');
@@ -96,7 +106,7 @@ function displayEpisodes(episodes, page = 1) {
     };
 }
 
-// Update pagination controls
+
 function updatePaginationControls(paginationInfo, type) {
     const controls = document.querySelector(`.pagination-controls.${type}`);
     const firstBtn = controls.querySelector('.first-page');
@@ -105,13 +115,13 @@ function updatePaginationControls(paginationInfo, type) {
     const lastBtn = controls.querySelector('.last-page');
     const pageInfo = controls.querySelector('.page-info');
 
-    // Update button states
+ 
     firstBtn.disabled = paginationInfo.currentPage === 1;
     prevBtn.disabled = paginationInfo.currentPage === 1;
     nextBtn.disabled = paginationInfo.currentPage === paginationInfo.totalPages;
     lastBtn.disabled = paginationInfo.currentPage === paginationInfo.totalPages;
 
-    // Update page info
+   
     pageInfo.textContent = `Page ${paginationInfo.currentPage} of ${paginationInfo.totalPages}`;
 }
 

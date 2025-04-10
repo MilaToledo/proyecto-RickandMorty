@@ -6,7 +6,7 @@ import {
     updatePaginationControls 
 } from './functions.js';
 
-// DOM Elements
+
 const searchButton = document.querySelector('.search-button');
 const searchInput = document.querySelector('#search-input');
 const searchType = document.querySelector('#search-type');
@@ -14,12 +14,12 @@ const loader = document.querySelector('.loader-container');
 const characterSection = document.querySelector('.character-section');
 const episodeSection = document.querySelector('.episode-section');
 
-// Initialize the app
+
 async function initApp() {
     try {
         showLoader();
         
-        // Load all characters and episodes on startup
+        
         const [characters, episodes] = await Promise.all([
             fetchAllCharacters(),
             fetchAllEpisodes()
@@ -34,13 +34,13 @@ async function initApp() {
     }
 }
 
-// Global pagination variables
+
 let currentCharacters = [];
 let currentEpisodes = [];
 let currentType = '';
 let currentPage = 1;
 
-// Handle page navigation
+
 function setupPaginationListeners(type) {
         const controls = document.querySelector(`.pagination-controls.${type}`);
         
@@ -85,11 +85,11 @@ function updateDisplay(type) {
         }
     }
 
-// Search functionality with pagination
+
 function setupSearch() {
     const sortSelect = document.querySelector('#search-sort');
     
-    // Handle sort changes
+ 
     sortSelect.addEventListener('change', () => {
         if (currentType === 'character' && currentCharacters.length > 0) {
             if (sortSelect.value === 'asc') {
@@ -108,7 +108,7 @@ function setupSearch() {
         }
     });
 
-    // Handle search type changes
+    
     searchType.addEventListener('change', (e) => {
         currentType = e.target.value;
         currentPage = 1;
@@ -138,7 +138,7 @@ function setupSearch() {
                     char.name.toLowerCase().includes(query)
                 );
                 
-                // Apply sorting based on selected option
+                
                 const sortSelect = document.querySelector('#search-sort');
                 if (sortSelect.value === 'asc') {
                     currentCharacters.sort((a, b) => a.name.localeCompare(b.name));
@@ -153,7 +153,7 @@ function setupSearch() {
                     ep.name.toLowerCase().includes(query)
                 );
                 
-                // Apply sorting based on selected option
+              
                 const sortSelect = document.querySelector('#search-sort');
                 if (sortSelect.value === 'asc') {
                     currentEpisodes.sort((a, b) => a.name.localeCompare(b.name));
@@ -171,7 +171,7 @@ function setupSearch() {
     });
 }
 
-// Helper functions
+
 function showLoader() {
     loader.classList.add('visible');
 }
@@ -180,23 +180,23 @@ function hideLoader() {
     loader.classList.remove('visible');
 }
 
-// Initialize the application
+
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         showLoader();
         
-        // Load and store initial data
+       
         currentCharacters = await fetchAllCharacters();
         currentEpisodes = await fetchAllEpisodes();
         
-        // Set up search functionality
+        
         setupSearch();
         
-        // Initialize pagination listeners
+       
         setupPaginationListeners('character');
         setupPaginationListeners('episode');
         
-        // Show characters by default, hide episodes
+        
         characterSection.classList.remove('hidden');
         episodeSection.classList.add('hidden');
         updateDisplay('character');
