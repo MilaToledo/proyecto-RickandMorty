@@ -87,6 +87,27 @@ function updateDisplay(type) {
 
 // Search functionality with pagination
 function setupSearch() {
+    const sortSelect = document.querySelector('#search-sort');
+    
+    // Handle sort changes
+    sortSelect.addEventListener('change', () => {
+        if (currentType === 'character' && currentCharacters.length > 0) {
+            if (sortSelect.value === 'asc') {
+                currentCharacters.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortSelect.value === 'desc') {
+                currentCharacters.sort((a, b) => b.name.localeCompare(a.name));
+            }
+            updateDisplay('character');
+        } else if (currentType === 'episode' && currentEpisodes.length > 0) {
+            if (sortSelect.value === 'asc') {
+                currentEpisodes.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (sortSelect.value === 'desc') {
+                currentEpisodes.sort((a, b) => b.name.localeCompare(a.name));
+            }
+            updateDisplay('episode');
+        }
+    });
+
     // Handle search type changes
     searchType.addEventListener('change', (e) => {
         currentType = e.target.value;
@@ -116,12 +137,30 @@ function setupSearch() {
                 currentCharacters = currentCharacters.filter(char => 
                     char.name.toLowerCase().includes(query)
                 );
+                
+                // Apply sorting based on selected option
+                const sortSelect = document.querySelector('#search-sort');
+                if (sortSelect.value === 'asc') {
+                    currentCharacters.sort((a, b) => a.name.localeCompare(b.name));
+                } else if (sortSelect.value === 'desc') {
+                    currentCharacters.sort((a, b) => b.name.localeCompare(a.name));
+                }
+                
                 updateDisplay('character');
             } else if (currentType === 'episode') {
                 currentEpisodes = await fetchAllEpisodes();
                 currentEpisodes = currentEpisodes.filter(ep => 
                     ep.name.toLowerCase().includes(query)
                 );
+                
+                // Apply sorting based on selected option
+                const sortSelect = document.querySelector('#search-sort');
+                if (sortSelect.value === 'asc') {
+                    currentEpisodes.sort((a, b) => a.name.localeCompare(b.name));
+                } else if (sortSelect.value === 'desc') {
+                    currentEpisodes.sort((a, b) => b.name.localeCompare(a.name));
+                }
+                
                 updateDisplay('episode');
             }
         } catch (error) {
