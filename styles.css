@@ -223,11 +223,17 @@ select {
 .character-card-back h3 {
     color: #08BAE3;
     margin-bottom: 10px;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
 }
 
 .character-card-back p {
     margin: 5px 0;
     color: #fff;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1.1em;
+    font-weight: 500;
 }
 
 .character-card-back .status {
