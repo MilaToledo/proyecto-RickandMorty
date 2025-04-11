@@ -26,11 +26,16 @@
     
     <main class="column">
         <div class="search">
-
             <h2 id="search-title">Search here</h2>
-
-
-
+            <div class="search-container">
+                <div class="search-input-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="Busca personajes, episodios o ubicaciones" aria-labelledby="search-title">
+                    <i class="fas fa-search" aria-hidden="true"></i>
+                </div>
+            </div>
+            
+            <div class="search-inner-container">
+                <div class="sort-container">
                     <label for="search-type">TYPE:</label>
                     <select name="search-type" id="search-type">
                         <option value="character">Character</option>
@@ -38,8 +43,11 @@
                     </select>
                     
                     <label for="search-sort">ORDER:</label>
-
-         
+                    <select name="search-sort" id="search-sort">
+                        <option value="asc">A-Z</option>
+                        <option value="desc">Z-A</option>
+                        <option value="recent">Más reciente</option>
+                    </select>
 
                     <div class="gender-filter-container show-gender-filter">
                         <label for="gender-filter">GENDER:</label>
@@ -53,8 +61,10 @@
                     </div>
                 </div>
                 <button type="button" class="search-button">SEARCH</button>
-
-
+            </div>
+        </div>
+        
+        <div>
             <section class="character-section hidden">
                 <h2>Characters</h2>
                 <div class="character-grid"></div>
@@ -96,6 +106,5 @@
     </main>
     
     <script type="module" src="./main.js"></script>
-
 </body>
 </html>
