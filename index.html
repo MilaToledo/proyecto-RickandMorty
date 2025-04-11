@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rick and Morty Explorer</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header>
@@ -22,47 +26,76 @@
     
     <main class="column">
         <div class="search">
-            <h2 id="search-title">Búsqueda</h2>
-            <div class="search-container">
-                <div class="search-input-container">
-                    <input type="text" id="search-input" class="search-input" placeholder="Busca personajes, episodios o ubicaciones" aria-labelledby="search-title">
-                    <i class="fas fa-search" aria-hidden="true"></i>
-                </div>
-            </div>
-            
-            <div class="search-inner-container">
-                <div class="sort-container">
-                    <label for="search-type">TIPO:</label>
+
+            <h2 id="search-title">Search here</h2>
+
+
+
+                    <label for="search-type">TYPE:</label>
                     <select name="search-type" id="search-type">
-                        <option value="character">Personajes</option>
-                        <option value="episode">Episodios</option>
-                        <option value="location">Ubicaciones</option>
+                        <option value="character">Character</option>
+                        <option value="episode">Episodes</option>
                     </select>
                     
-                    <label for="search-sort">ORDEN:</label>
-                    <select name="search-sort" id="search-sort">
-                        <option value="asc">A-Z</option>
-                        <option value="desc">Z-A</option>
-                        <option value="recent">Más reciente</option>
-                    </select>
+                    <label for="search-sort">ORDER:</label>
+
+         
+
+                    <div class="gender-filter-container show-gender-filter">
+                        <label for="gender-filter">GENDER:</label>
+                        <select name="gender-filter" id="gender-filter">
+                            <option value="all">All</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Genderless">Genderless</option>
+                            <option value="unknown">unknown</option>
+                        </select>
+                    </div>
                 </div>
-                <button type="button" class="search-button">BUSCAR</button>
+                <button type="button" class="search-button">SEARCH</button>
+
+
+            <section class="character-section hidden">
+                <h2>Characters</h2>
+                <div class="character-grid"></div>
+                <div class="pagination-controls character">
+                    <button class="first-page">First</button>
+                    <button class="prev-page">Previous</button>
+                    <span class="page-info"></span>
+                    <button class="next-page">Next</button>
+                    <button class="last-page">Last</button>
+                </div>
+            </section>
+
+            <section class="episode-section hidden">
+                <h2>Episodes</h2>
+                <div class="episode-list"></div>
+                <div class="pagination-controls episode">
+                    <button class="first-page">First</button>
+                    <button class="prev-page">Previous</button>
+                    <span class="page-info"></span>
+                    <button class="next-page">Next</button>
+                    <button class="last-page">Last</button>
+                </div>
+            </section>
+            <div class="loader-container hidden">
+                <div class="loader"></div>
             </div>
-        </div>
-        
-        <div>
-            <section class="character-section hidden"></section>
-            <section class="episode-section hidden"></section>
-            <section class="results-section"></section>
-            <div class="loader-container hidden"></div>
+            
+            <section class="episode-details-section hidden">
+                <button class="back-button">← Back to Episodes</button>
+                <h2 class="episode-title"></h2>
+                <div class="episode-meta">
+                    <span class="episode-code"></span>
+                    <span class="episode-air-date"></span>
+                </div> 
+                <h3>Characters in this episode:</h3>
+                <div class="episode-characters-grid"></div>
+            </section>
         </div>
     </main>
     
-    <script>
-        document.querySelector('.search-button').addEventListener('click', function() {
-            // Search functionality would be implemented here
-            alert('¡Wubba Lubba Dub Dub! Función de búsqueda en desarrollo.');
-        });
-    </script>
+    <script type="module" src="./main.js"></script>
+
 </body>
 </html>
