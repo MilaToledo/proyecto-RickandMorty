@@ -99,8 +99,9 @@ function updateDisplay(type) {
 
 function setupSearch() {
     const sortSelect = document.querySelector('#search-sort');
+    const genderFilter = document.querySelector('#gender-filter');
     
- 
+    // Handle sort changes
     sortSelect.addEventListener('change', () => {
         if (currentType === 'character' && currentCharacters.length > 0) {
             if (sortSelect.value === 'asc') {
@@ -127,14 +128,19 @@ function setupSearch() {
         if (currentType === 'character') {
             characterSection.classList.remove('hidden');
             episodeSection.classList.add('hidden');
+          
+            document.querySelector('.gender-filter-container').classList.add('show-gender-filter');
             updateDisplay('character');
         } else if (currentType === 'episode') {
             characterSection.classList.add('hidden');
             episodeSection.classList.remove('hidden');
+           
+            document.querySelector('.gender-filter-container').classList.remove('show-gender-filter');
             updateDisplay('episode');
         }
     });
 
+   
     searchButton.addEventListener('click', async () => {
         const query = searchInput.value.toLowerCase();
         currentType = searchType.value;
@@ -145,11 +151,23 @@ function setupSearch() {
             
             if (currentType === 'character') {
                 currentCharacters = await fetchAllCharacters();
-                currentCharacters = currentCharacters.filter(char => 
-                    char.name.toLowerCase().includes(query)
-                );
+                
+               
+                if (query) {
+                    currentCharacters = currentCharacters.filter(char => 
+                        char.name.toLowerCase().includes(query)
+                    );
+                }
                 
                 
+                const selectedGender = genderFilter.value;
+                if (selectedGender !== 'all') {
+                    currentCharacters = currentCharacters.filter(char => 
+                        char.gender === selectedGender
+                    );
+                }
+                
+               
                 const sortSelect = document.querySelector('#search-sort');
                 if (sortSelect.value === 'asc') {
                     currentCharacters.sort((a, b) => a.name.localeCompare(b.name));

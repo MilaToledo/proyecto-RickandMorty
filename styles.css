@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Pixelify Sans', sans-serif;
     background-color: #262626;
     color: #fff;
     margin: 0;
@@ -85,6 +85,7 @@ body {
 }
 
 .search {
+    
     padding: 40px 0;
 }
 
@@ -140,6 +141,16 @@ body {
     margin-bottom: 20px;
 }
 
+.gender-filter-container {
+    display: none;
+}
+
+.show-gender-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 label {
     margin-right: 10px;
     color: #97ce4c;
@@ -153,6 +164,10 @@ select {
     border-radius: 5px;
 }
 
+button {
+    font-family: 'Pixelify Sans', sans-serif;
+}
+
 .search-button {
     background-color: #97ce4c;
     color: #000;
@@ -163,6 +178,7 @@ select {
     cursor: pointer;
     margin: 20px auto;
     display: block;
+    font-family: 'Pixelify Sans', sans-serif;
 }
 
 .hidden {

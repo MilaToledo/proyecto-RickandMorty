@@ -48,6 +48,17 @@
                         <option value="desc">Z-A</option>
                         <option value="recent">Más reciente</option>
                     </select>
+
+                    <div class="gender-filter-container show-gender-filter">
+                        <label for="gender-filter">GENDER:</label>
+                        <select name="gender-filter" id="gender-filter">
+                            <option value="all">All</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Genderless">Genderless</option>
+                            <option value="unknown">unknown</option>
+                        </select>
+                    </div>
                 </div>
                 <button type="button" class="search-button">SEARCH</button>
             </div>
@@ -87,7 +98,7 @@
                 <div class="episode-meta">
                     <span class="episode-code"></span>
                     <span class="episode-air-date"></span>
-                </div>
+                </div> 
                 <h3>Characters in this episode:</h3>
                 <div class="episode-characters-grid"></div>
             </section>

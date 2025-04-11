@@ -151,11 +151,11 @@ async function showEpisodeDetails(episode) {
         charactersGrid.appendChild(card);
     });
     
-    // Show details section
+   
     episodeSection.classList.add('hidden');
     detailsSection.classList.remove('hidden');
     
-    // Back button handler
+   
     document.querySelector('.back-button').onclick = () => {
         detailsSection.classList.add('hidden');
         episodeSection.classList.remove('hidden');
