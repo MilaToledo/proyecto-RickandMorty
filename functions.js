@@ -1,6 +1,5 @@
 const API_BASE = 'https://rickandmortyapi.com/api';
 
-
 async function fetchAllCharacters() {
     let allCharacters = [];
     let nextUrl = `${API_BASE}/character`;
@@ -19,7 +18,6 @@ async function fetchAllCharacters() {
     }
 }
 
-
 async function fetchAllEpisodes() {
     let allEpisodes = [];
     let nextUrl = `${API_BASE}/episode`;
@@ -37,7 +35,6 @@ async function fetchAllEpisodes() {
         return [];
     }
 }
-
 
 function displayCharacters(characters, page = 1) {
     const section = document.querySelector('.character-section');
@@ -78,7 +75,6 @@ function displayCharacters(characters, page = 1) {
     };
 }
 
-
 function displayEpisodes(episodes, page = 1) {
     const section = document.querySelector('.episode-section');
     const list = section.querySelector('.episode-list');
@@ -106,7 +102,6 @@ function displayEpisodes(episodes, page = 1) {
     };
 }
 
-
 function updatePaginationControls(paginationInfo, type) {
     const controls = document.querySelector(`.pagination-controls.${type}`);
     const firstBtn = controls.querySelector('.first-page');
@@ -115,32 +110,78 @@ function updatePaginationControls(paginationInfo, type) {
     const lastBtn = controls.querySelector('.last-page');
     const pageInfo = controls.querySelector('.page-info');
 
- 
     firstBtn.disabled = paginationInfo.currentPage === 1;
     prevBtn.disabled = paginationInfo.currentPage === 1;
     nextBtn.disabled = paginationInfo.currentPage === paginationInfo.totalPages;
     lastBtn.disabled = paginationInfo.currentPage === paginationInfo.totalPages;
 
-   
     pageInfo.textContent = `Page ${paginationInfo.currentPage} of ${paginationInfo.totalPages}`;
+}
+
+async function showCharacterDetails(character) {
+    const detailsSection = document.querySelector('.character-details-section');
+    const characterSection = document.querySelector('.character-section');
+
+  
+    const episodesList = detailsSection.querySelector('.character-episodes-list');
+    episodesList.innerHTML = '';
+
+    try {
+        const episodePromises = character.episode.map(url => fetch(url).then(res => res.json()));
+        const episodes = await Promise.all(episodePromises);
+
+        episodes.forEach(episode => {
+            const li = document.createElement('li');
+            li.textContent = `${episode.episode}: ${episode.name}`;
+            li.style.cursor = 'pointer';
+            li.addEventListener('click', async () => {
+                await showEpisodeDetails(episode);
+                detailsSection.classList.add('hidden');
+            });
+            episodesList.appendChild(li);
+        });
+    } catch (error) {
+        console.error('Error fetching character episodes:', error);
+        episodesList.innerHTML = '<li>Error loading episodes</li>';
+    }
+
+    
+    characterSection.classList.add('hidden');
+    detailsSection.classList.remove('hidden');
+
+    // Back button handler
+    detailsSection.querySelector('.character-back-button').onclick = () => {
+        detailsSection.classList.add('hidden');
+        characterSection.classList.remove('hidden');
+    };
 }
 
 async function showEpisodeDetails(episode) {
     const detailsSection = document.querySelector('.episode-details-section');
     const episodeSection = document.querySelector('.episode-section');
+    const characterDetailsSection = document.querySelector('.character-details-section');
+
+  
+    const episodeImage = detailsSection.querySelector('.episode-image');
+    if (episode.image) {
+        episodeImage.src = episode.image;
+        episodeImage.alt = episode.name;
+        episodeImage.style.display = 'block';
+    } else {
+        episodeImage.style.display = 'none';
+    }
+
+    detailsSection.querySelector('.episode-title').textContent = episode.name;
+    detailsSection.querySelector('.episode-code').textContent = episode.episode;
+    detailsSection.querySelector('.episode-air-date').textContent = `Aired: ${episode.air_date}`;
+
     
-    // Update episode info
-    document.querySelector('.episode-title').textContent = episode.name;
-    document.querySelector('.episode-code').textContent = episode.episode;
-    document.querySelector('.episode-air-date').textContent = `Aired: ${episode.air_date}`;
-    
-    // Fetch and display characters
-    const charactersGrid = document.querySelector('.episode-characters-grid');
+    const charactersGrid = detailsSection.querySelector('.episode-characters-grid');
     charactersGrid.innerHTML = '';
-    
+
     const characterPromises = episode.characters.map(url => fetch(url).then(res => res.json()));
     const characters = await Promise.all(characterPromises);
-    
+
     characters.forEach(character => {
         const card = document.createElement('div');
         card.className = 'episode-character-card';
@@ -150,15 +191,16 @@ async function showEpisodeDetails(episode) {
         `;
         charactersGrid.appendChild(card);
     });
-    
+
    
     episodeSection.classList.add('hidden');
+    characterDetailsSection.classList.add('hidden');
     detailsSection.classList.remove('hidden');
-    
+
    
-    document.querySelector('.back-button').onclick = () => {
+    detailsSection.querySelector('.back-button').onclick = () => {
         detailsSection.classList.add('hidden');
-        episodeSection.classList.remove('hidden');
+        characterDetailsSection.classList.remove('hidden');
     };
 }
 
@@ -168,5 +210,6 @@ export {
     displayCharacters, 
     displayEpisodes,
     updatePaginationControls,
-    showEpisodeDetails
+    showEpisodeDetails,
+    showCharacterDetails
 };

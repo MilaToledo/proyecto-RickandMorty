@@ -193,7 +193,7 @@ button {
     display: none;
 }
 
-/* Character Cards */
+
 .character-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -461,4 +461,28 @@ button {
 .back-button:active {
     transform: translateY(0);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.character-episodes-list {
+    list-style: none;
+    padding: 0 20px;
+    margin: 0;
+}
+
+.character-episodes-list li {
+    background: #333;
+    border-left: 4px solid #97ce4c;
+    padding: 10px 15px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease;
+    cursor: default;
+}
+
+.character-episodes-list li:hover {
+    background-color: #08BAE3;
+    color: #000;
 }
