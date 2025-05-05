@@ -4,7 +4,8 @@ import {
     displayCharacters, 
     displayEpisodes,
     updatePaginationControls,
-    showEpisodeDetails 
+    showEpisodeDetails,
+    showCharacterDetails
 } from './functions.js';
 
 
@@ -80,11 +81,21 @@ function updateDisplay(type) {
         if (type === 'character') {
             const pagination = displayCharacters(currentCharacters, currentPage);
             updatePaginationControls(pagination, type);
+
+            
+            document.querySelectorAll('.character-card').forEach((card, index) => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    const character = currentCharacters[index + ((currentPage - 1) * 20)];
+                    showCharacterDetails(character);
+                });
+            });
+
         } else {
         const pagination = displayEpisodes(currentEpisodes, currentPage);
         updatePaginationControls(pagination, type);
         
-        // Add click handlers to episode cards
+    
         document.querySelectorAll('.episode-card').forEach(card => {
             card.style.cursor = 'pointer';
             card.addEventListener('click', (e) => {
@@ -101,7 +112,7 @@ function setupSearch() {
     const sortSelect = document.querySelector('#search-sort');
     const genderFilter = document.querySelector('#gender-filter');
     
-    // Handle sort changes
+    
     sortSelect.addEventListener('change', () => {
         if (currentType === 'character' && currentCharacters.length > 0) {
             if (sortSelect.value === 'asc') {
